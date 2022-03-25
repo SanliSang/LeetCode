@@ -123,6 +123,32 @@ public class ValidParentheses{
             }
             return stack.isEmpty();
         }
+
+
+        // 二刷
+        public boolean isValid3(String s) {
+            // 正常思路
+            // 1、创建一个栈，用于存储左括号
+            // 2、遇到左括号直接压栈，遇到右括号判断当前栈顶是否有对应地左括号，有则直接弹出，否则返回false
+            // 3、当遍历完成后，判断栈是否为空，若为空则返回true，否则返回false
+
+            // 优化后：左括号不需要压栈，而应该压入对应相反的右括号。
+            // 比如：当第一个为左括号时，压入右括号，然后下一次出现右括号，就可以匹配是否是对应地有括号来判断是否匹配正确。省去了压入左括号的时间
+            Stack<Character> stack = new Stack<>();
+            for (char c : s.toCharArray()) {
+                if (c == '['){
+                    stack.push(']');
+                }else if (c == '{'){
+                    stack.push('}');
+                }else if (c == '('){
+                    stack.push(')');
+                }else if (stack.isEmpty() || stack.pop()!=c){ // 判断右括号是否相等
+                    return false;
+                }
+            }
+            return stack.isEmpty();
+        }
+
     }
 //leetcode submit region end(Prohibit modification and deletion)
 /**
